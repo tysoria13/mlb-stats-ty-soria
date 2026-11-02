@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<!--
+  MLB VELOCITY & BURNOUT — GitHub Pages article template
+
+  HOW TO EDIT:
+  1. In GitHub, open this file and click the pencil icon.
+  2. Search for "EDIT:" to find the text designed for you to replace.
+  3. To change type, colors, or spacing, edit the values in :root below.
+  4. To add a Flourish visual, replace a whole FLOURISH EMBED block with the
+     iframe code Flourish gives you under Share & embed.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="An interactive data story about velocity and burnout in Major League Baseball." />
+  <title>When More Velocity Comes at a Cost</title>
+
+  <!-- EDIT: Swap these Google Fonts or change the CSS font names below. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ================================================================
+       EDIT: DESIGN CONTROLS — Change these values to restyle the site.
+       ================================================================ */
+    :root {
+      --ink: #21130e;
+      --paper: #fff8ed;
+      --paper-deep: #f7ead7;
+      --red: #a31f18;
+      --orange: #e65d22;
+      --gold: #f4b336;
+      --yellow: #ffe09a;
+      --muted: #775f53;
+      --headline-font: "Archivo Black", Impact, sans-serif;
+      --body-font: "Source Serif 4", Georgia, serif;
+      --label-font: "DM Mono", monospace;
+      --article-width: 720px;
+      --body-size: 20px;
+      --body-line-height: 1.65;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body-font); }
+    a { color: var(--red); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+    a:hover { color: var(--orange); }
+
+    .story-header {
+      background: var(--ink);
+      color: var(--paper);
+      min-height: 74vh;
+      padding: clamp(28px, 6vw, 84px) 24px 46px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+      position: relative;
+    }
+    .story-header::before {
+      content: "";
+      position: absolute;
+      width: min(74vw, 900px);
+      height: min(74vw, 900px);
+      right: -20vw;
+      top: -36vw;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 70%, var(--yellow) 0 5%, var(--gold) 6% 21%, var(--orange) 22% 42%, var(--red) 43% 62%, transparent 63%);
+      opacity: .96;
+    }
+    .masthead, .hero-copy { position: relative; width: min(1120px, 100%); margin: 0 auto; }
+    .masthead { font: 500 11px/1 var(--label-font); letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin-bottom: auto; }
+    .hero-copy { padding-top: 170px; }
+    .kicker, .section-label { font: 500 12px/1.2 var(--label-font); color: var(--orange); letter-spacing: .12em; text-transform: uppercase; }
+    h1 { font: 400 clamp(44px, 9vw, 112px)/.91 var(--headline-font); letter-spacing: -.045em; max-width: 950px; margin: 16px 0 24px; text-wrap: balance; }
+    .dek { max-width: 640px; font-size: clamp(20px, 2.5vw, 29px); line-height: 1.22; margin: 0; }
+
+    .meta { border-bottom: 1px solid #d9c8b5; padding: 20px 24px; font: 500 12px/1.5 var(--label-font); color: var(--muted); }
+    .meta-inner { width: min(var(--article-width), 100%); margin: auto; display: flex; gap: 10px 22px; flex-wrap: wrap; }
+    .meta strong { color: var(--ink); }
+
+    .article { width: min(var(--article-width), calc(100% - 48px)); margin: 0 auto; padding: 66px 0 96px; }
+    .article p { font-size: var(--body-size); line-height: var(--body-line-height); margin: 0 0 1.35em; }
+    .article .intro { font-size: clamp(23px, 3vw, 28px); line-height: 1.42; font-weight: 500; }
+    .article h2 { font: 400 clamp(30px, 5vw, 50px)/.98 var(--headline-font); letter-spacing: -.035em; margin: 1.65em 0 .4em; text-wrap: balance; }
+    .article h3 { font: 500 15px/1.2 var(--label-font); color: var(--red); letter-spacing: .07em; text-transform: uppercase; margin: 3em 0 .85em; }
+    .rule { border: 0; border-top: 4px solid var(--orange); margin: 54px 0; width: 86px; }
+
+    .flourish-wrap { margin: 48px 0 54px; width: min(100vw - 28px, 1080px); margin-left: 50%; transform: translateX(-50%); }
+    .embed-note { width: min(var(--article-width), calc(100% - 48px)); margin: 0 auto 13px; font: 500 11px/1.4 var(--label-font); color: var(--muted); }
+    .flourish-placeholder { min-height: 310px; display: grid; place-items: center; text-align: center; padding: 32px; border: 2px dashed var(--orange); background: linear-gradient(135deg, #fff1d6, #ffe5b0); color: var(--red); }
+    .flourish-placeholder b { display: block; font: 500 14px/1.4 var(--label-font); letter-spacing: .04em; text-transform: uppercase; }
+    .flourish-placeholder span { display: block; max-width: 420px; font-size: 18px; line-height: 1.4; margin-top: 10px; }
+    .chart-caption { width: min(var(--article-width), calc(100% - 48px)); margin: 12px auto 0; color: var(--muted); font-size: 15px; line-height: 1.4; }
+
+    blockquote { border-left: 7px solid var(--gold); padding: 8px 0 8px 24px; margin: 52px 0; font: 500 clamp(27px, 4vw, 42px)/1.08 var(--body-font); letter-spacing: -.025em; }
+    blockquote cite { display: block; margin-top: 16px; font: 500 11px/1.4 var(--label-font); color: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
+    .data-note { background: var(--paper-deep); border-top: 5px solid var(--gold); padding: 26px 28px; margin: 58px 0 0; }
+    .data-note h2 { font: 500 14px/1.2 var(--label-font); letter-spacing: .08em; text-transform: uppercase; margin: 0 0 12px; }
+    .data-note p { font-size: 16px; line-height: 1.5; margin: 0; }
+    footer { background: var(--red); color: var(--paper); padding: 32px 24px; }
+    footer p { width: min(var(--article-width), 100%); margin: auto; font: 400 13px/1.5 var(--label-font); }
+    @media (max-width: 560px) { .article { width: min(var(--article-width), calc(100% - 36px)); padding-top: 42px; } .story-header { min-height: 65vh; } .hero-copy { padding-top: 120px; } }
+  </style>
+</head>
+<body>
+  <header class="story-header">
+    <!-- EDIT: publication / project name -->
+    <div class="masthead">MLB DATA PROJECT · 2026</div>
+    <div class="hero-copy">
+      <!-- EDIT: headline, deck, and byline details -->
+      <div class="kicker">The pitching-speed boom</div>
+      <h1>Throwing harder has never been easier. Staying healthy may be another story.</h1>
+      <p class="dek">As fastball velocity climbs throughout Major League Baseball, the game’s workload—and its human cost—are changing with it.</p>
+    </div>
+  </header>
+
+  <div class="meta">
+    <div class="meta-inner">
+      <!-- EDIT: author, outlet and date -->
+      <span>By <strong>Ty Soria</strong></span>
+      <span>Published <strong>Month Day, 2026</strong></span>
+      <span>Estimated reading time: <strong>6 min.</strong></span>
+    </div>
+  </div>
+
+  <main class="article">
+    <!-- EDIT: Replace this introduction with your outline's opening. -->
+    <p class="intro">Baseball has spent the last decade chasing speed. Teams develop it, pitchers train for it and fans marvel at it. But an accelerating game also raises a quieter question: what happens when the sport keeps asking arms to operate at the edge?</p>
+
+    <p>Replace this paragraph with your reporting and narrative. Keep each paragraph inside its own <code>&lt;p&gt;...&lt;/p&gt;</code> tags. In GitHub’s editor, you can change only the words between the tags and leave the formatting intact.</p>
+
+    <!-- FLOURISH EMBED 1: Delete the placeholder below and paste Flourish's iframe code here. -->
+    <section class="flourish-wrap" aria-label="Interactive data visualization one">
+      <p class="embed-note">INTERACTIVE 01 · EDIT: Chart title</p>
+      <div class="flourish-placeholder">
+        <div>
+          <b>Paste Flourish embed #1 here</b>
+          <span>In Flourish: Share &amp; embed → Embed on your website → copy the iframe code. Replace this entire orange box with that code.</span>
+        </div>
+      </div>
+      <p class="chart-caption">EDIT: Write a one- or two-sentence takeaway explaining what readers should notice in this graphic. Source: Your spreadsheet.</p>
+    </section>
+
+    <h2>Velocity is changing the baseline</h2>
+    <!-- EDIT: Replace with material from your outline. -->
+    <p>Your analysis goes here. Use this section to introduce the most important trend in your data: the years, players or teams that establish how the league’s definition of a hard thrower has changed.</p>
+
+    <blockquote>
+      EDIT: Add a strong reporting quote or a concise data-driven finding here.
+      <cite>— Source name, role or data description</cite>
+    </blockquote>
+
+    <!-- FLOURISH EMBED 2 -->
+    <section class="flourish-wrap" aria-label="Interactive data visualization two">
+      <p class="embed-note">INTERACTIVE 02 · EDIT: Chart title</p>
+      <div class="flourish-placeholder">
+        <div><b>Paste Flourish embed #2 here</b><span>This works for a scrollytelling chart, line chart, table, map or race chart.</span></div>
+      </div>
+      <p class="chart-caption">EDIT: Explain the chart’s key finding and cite the underlying data.</p>
+    </section>
+
+    <h2>The physical toll is harder to measure</h2>
+    <p>EDIT: Use this section for the connection between increased velocity, workload and injury or burnout. Make one clear claim per paragraph, and use your visuals to show the evidence rather than repeating every number in the prose.</p>
+
+    <h3>What the data can—and cannot—say</h3>
+    <p>EDIT: Add needed context, limitations or counterevidence here. This is particularly useful when correlations in the data cannot prove that velocity alone caused an injury or outcome.</p>
+
+    <!-- FLOURISH EMBED 3 -->
+    <section class="flourish-wrap" aria-label="Interactive data visualization three">
+      <p class="embed-note">INTERACTIVE 03 · EDIT: Chart title</p>
+      <div class="flourish-placeholder">
+        <div><b>Paste Flourish embed #3 here</b><span>Duplicate this entire section if you need another visual. You can also delete it if you do not.</span></div>
+      </div>
+      <p class="chart-caption">EDIT: Explain the final visualization and provide its source.</p>
+    </section>
+
+    <h2>Where the game goes from here</h2>
+    <p>EDIT: End with the stakes: what players, teams, fans or the sport itself stand to gain or lose as the velocity era continues.</p>
+
+    <aside class="data-note">
+      <h2>Methodology &amp; sources</h2>
+      <!-- EDIT: Add a plain-language description of your spreadsheet, date range and any calculations. -->
+      <p>EDIT: Describe the spreadsheet, where its data came from, the range of seasons or players included and any limitations. Link the public source data here when appropriate.</p>
+    </aside>
+  </main>
+
+  <footer>
+    <!-- EDIT: credit / contact line -->
+    <p>EDIT: A data story by Ty Soria. Built with GitHub Pages and Flourish.</p>
+  </footer>
+</body>
+</html>
