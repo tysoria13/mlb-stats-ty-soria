@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MLB Scoreboard</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      background: #f5f5f5;
+      color: #161616;
+    }
+
+    h1 {
+      margin-bottom: 6px;
+    }
+
+    #date {
+      color: #555;
+      margin-bottom: 28px;
+    }
+
+    #games {
+      display: grid;
+      gap: 14px;
+    }
+
+    .game-card {
+      background: white;
+      border-left: 6px solid #0b2d5c;
+      border-radius: 8px;
+      padding: 18px;
+      box-shadow: 0 2px 7px rgba(0,0,0,.08);
+    }
+
+    .teams {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .status {
+      color: #555;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Today's MLB Games</h1>
+  <p id="date">Loading date…</p>
+  <div id="games">Loading games…</div>
+
+  <script>
+    const gamesContainer = document.getElementById("games");
+    const dateText = document.getElementById("date");
+
+    const today = new Date().toISOString().split("T")[0];
+    dateText.textContent = today;
+
+    fetch(`https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=${today}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Could not load MLB data.");
+        }
+        return response.json();
+      })
+      .then(data => {
+        const games = data.dates?.[0]?.games || [];
+
+        if (games.length === 0) {
+          gamesContainer.innerHTML = "<p>No MLB games scheduled today.</p>";
+          return;
+        }
+
+        gamesContainer.innerHTML = games.map(game => {
+          const away = game.teams.away.team.name;
+          const home = game.teams.home.team.name;
+          const status = game.status.detailedState;
+
+          return `
+            <article class="game-card">
+              <div class="teams">${away} at ${home}</div>
+              <div class="status">${status}</div>
+            </article>
+          `;
+        }).join("");
+      })
+      .catch(error => {
+        gamesContainer.innerHTML = `<p>${error.message}</p>`;
+      });
+  </script>
+</body>
+</html>
