@@ -88,8 +88,24 @@
     .article h3 { font: 500 15px/1.2 var(--label-font); color: var(--red); letter-spacing: .07em; text-transform: uppercase; margin: 3em 0 .85em; }
     .rule { border: 0; border-top: 4px solid var(--orange); margin: 54px 0; width: 86px; }
 
-    .flourish-wrap { margin: 48px 0 54px; width: min(100vw - 28px, 1080px); margin-left: 50%; transform: translateX(-50%); }
-    .flourish-two {
+   .flourish-wrap {
+  width: 100%;
+  margin: 48px 0 54px;
+}
+
+.flourish-wrap .flourish-embed,
+.flourish-wrap iframe {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.chart-caption {
+  width: 100%;
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.4;
+}
   width: min(100vw - 28px, 800px);
 }
     .embed-note { width: min(var(--article-width), calc(100% - 48px)); margin: 0 auto 13px; font: 500 11px/1.4 var(--label-font); color: var(--muted); }
